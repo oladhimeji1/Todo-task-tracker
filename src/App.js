@@ -50,7 +50,8 @@ function App() {
     // const data = await res.json()
     const id = Math.floor( Math.random() * 1000 ) + 1
     const newTask = { id, ...task }
-    const todo = [ ...tasks, newTask ]
+    const prevTodo = tasks === null ? [] : [...tasks];
+    const todo = [ prevTodo, newTask ]
     setTasks([ ...tasks, newTask ])
     localStorage.setItem('tasks', JSON.stringify(todo))
     
