@@ -1,0 +1,12 @@
+{
+    "blogs":[
+        {"titile": "My first Blog",
+        "snippet": "this is a snippet",
+        "author": "Oladimeji",
+        "id": 1},
+        {"titile": "My second Blog",
+        "snippet": "this is another snippet",
+        "author": "Oladimeji",
+        "id": 1}
+    ]
+}
