@@ -74,7 +74,7 @@ function App() {
         { showAdd && <AddTask onAdd = { addTask } />}
 
         {/* {tasks.length > 0  ? ( */}
-        {tasks != ![]  ? (
+        {tasks !== ![]  ? (
           <Tasks tasks = { tasks } 
           onDelete = { deleteTask }
           onToggle = { toggleRem } />
