@@ -1,2 +1,2 @@
 # Todo-task-tracker
-This 
+Todo task-tracker built with ReactJs and Localstorage as the database
