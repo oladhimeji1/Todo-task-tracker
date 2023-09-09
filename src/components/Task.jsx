@@ -3,7 +3,8 @@ function Task({task, onDelete, onToggle}) {
     return (
         <div title='Double click here to toggle reminder'
         className={`task ${task.reminder ?
-        'reminder' : '' }`}
+        'reminder' : '' } ${task.pending ?
+            'pending' : '' }`}
         onDoubleClick = {() => onToggle(task.id)}>
 
             <h3 
@@ -14,7 +15,7 @@ function Task({task, onDelete, onToggle}) {
             </h3>
 
             <span>{ task.day } </span>
-            {task.reminder ? <small>(completed)</small> : <small>(pending)</small> }
+            {task.reminder ? <small>(completed)</small> : task.pending ? <small>(Important)</small> : <small>(In Queue)</small> }
         </div>
     );
 }

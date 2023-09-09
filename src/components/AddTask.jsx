@@ -4,17 +4,17 @@ function AddTask({ onAdd }) {
 
     const [text, setText] = useState('');
     const [day, setDay] = useState('');
-    const [reminder, setReminder] = useState(false);
+    const [important, setImportant] = useState(false);
 
     const onSubmit = (e) => {
         e.preventDefault()
         if(!text && !day){
             alert('Please add some task'); 
         } else{
-            onAdd({ text, day, reminder})
+            onAdd({ text, day, important})
             setText('')
             setDay('')
-            setReminder(false)
+            setImportant(false)
         }
     }
 
@@ -31,11 +31,11 @@ function AddTask({ onAdd }) {
                 value = { day } onChange = { (e) => setDay(e.target.value) } />
             </div>
             <div className="form-control-check">
-                <label htmlFor="Reminder">Set Reminder</label>
+                <label htmlFor="Reminder">Urgent?</label>
                 <input type="checkbox" 
-                checked={reminder}
-                value={ reminder } 
-                onChange={(e)=>setReminder(e.currentTarget.checked)}/>
+                checked={important}
+                value={ important } 
+                onChange={(e)=>setImportant(e.currentTarget.checked)}/>
             </div>
             <button className="btn btn-block">
             Save Task

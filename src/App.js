@@ -6,31 +6,19 @@ import AddTask from "./components/AddTask";
 function App() {
 
   const [ showAdd, setShowAdd ] = useState(false);
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([])
+  
+  const data = JSON.parse(localStorage.getItem('tasks'));
 
   useEffect(() => {
-
-    const data = localStorage.getItem('tasks')
-    setTasks(JSON.parse(data))
+    console.log(tasks)
+    console.log(data)
+    setTasks(data);
   }, [])
-
-  // Fetching api
-  // const fetchTasks = async () => {
-  //   const res = await fetch('http://localhost:5000/tasks', { type: 'cors' })
-  //   const data = await res.json()
-
-  //   return data;
-  // }
 
   // Delete task
   const deleteTask =  (id) => {
 
-    //  fetch(`/tasks/${id}`, {
-    //   method: 'DELETE',
-    //   mode: 'cors', 
-    //   cache: 'no-cache',
-    //   credentials: 'same-origin'})
-    
     const deleted = tasks.filter((task) => task.id !== id)
     setTasks(deleted)
     localStorage.setItem('tasks', JSON.stringify(deleted))
@@ -38,32 +26,22 @@ function App() {
   // Add task
   const addTask = async (task) => {
 
-    // const res = await fetch('http://localhost:5000/tasks', {
-    //   mode: 'cors'}, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(task)
-    // })
-
-    // const data = await res.json()
     const id = Math.floor( Math.random() * 1000 ) + 1
     const newTask = { id, ...task }
-    const prevTodo = tasks === null ? [] : [...tasks];
-    const todo = [ prevTodo, newTask ]
-    setTasks([ ...tasks, newTask ])
-    localStorage.setItem('tasks', JSON.stringify(todo))
     
+    setTasks([ ...tasks, newTask ])
+    localStorage.setItem('tasks', JSON.stringify([ ...tasks, newTask ]));
   }
 
   // Toggle Reminder
   const toggleRem = (id) => {
     const reminder = tasks.map((task) => task.id === id ? { ...task, reminder: !task.reminder } : task)
-    // console.log(reminder)
     setTasks(reminder)
     localStorage.setItem('tasks', JSON.stringify(reminder))
   }
+
+  if((tasks.length === 0 || tasks === null) && (data.length === 0 || data === null)){
+    
   return (
     
       <div className="container">
@@ -74,21 +52,31 @@ function App() {
 
         { showAdd && <AddTask onAdd = { addTask } />}
 
-        {/* {tasks.length > 0  ? ( */}
-        {tasks !== null  ? (
-          <Tasks tasks = { tasks } 
-          onDelete = { deleteTask }
-          onToggle = { toggleRem } />
-        ) : (
           <div>
             <p> <i className="fa fa-warning"></i> No Task To Show <i className="fa fa-warning"></i></p>
             <small>This project was built with ReactJs, using local storage as the database</small>
             
           </div>
           
-          )}
       </div>
+  );
+}
+  return (
     
+      <div className="container">
+        <Header 
+        onAdd = { () => setShowAdd(!showAdd) }
+        showAddX = { showAdd } 
+      />
+
+        { showAdd && <AddTask onAdd = { addTask } />}
+
+            <Tasks tasks = { tasks } 
+            onDelete = { deleteTask }
+            onToggle = { toggleRem } />
+           
+        
+      </div>
   );
 }
 
